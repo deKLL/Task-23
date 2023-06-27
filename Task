@@ -1,0 +1,50 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+//specialities
+enum Specialization {
+    ComputerScience,
+    Informatic,
+    MathematicEconomic,
+    PhysicInformatic,
+};
+struct Student {
+    string surname;
+    int course;
+    Specialization specialization;
+    int physicsGrade;
+    int mathGrade;
+    int thirdGrade;
+};
+void printStudentInfo(const Student& student) {
+    cout << "Surname: " << student.surname << endl;
+    double averageGrade = (student.physicsGrade + student.mathGrade + student.thirdGrade) / 3.0;
+    cout << "Average grade: " << averageGrade << endl;
+}
+int vidminno(const Student* students, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        double averageGrade = (students[i].physicsGrade + students[i].mathGrade + students[i].thirdGrade) / 3.0;
+        if (averageGrade >= 4.5) {
+            count++;
+        }
+    }
+    return count;
+}
+int main() {
+    const int numStudents = 3;
+    Student students[numStudents];
+    students[0] = {"Leskiv", 3, ComputerScience, 4, 5, 5};
+    students[1] = {"Klymiv", 2, Informatic, 3, 4, 5};
+    students[2] = {"Garbich", 4, MathematicEconomic, 5, 5, 4};
+
+    for (int i = 0; i < numStudents; i++) {
+        cout << "Student " << i+1 << ":\n";
+        printStudentInfo(students[i]);
+        cout << endl;
+    }
+    int excellentCount = vidminno(students, numStudents);
+    cout << "Number of students with excellent grades: " << excellentCount << endl;
+    return 0;
+}
